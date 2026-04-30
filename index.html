@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta property="og:title" content="은하의 첫돌 잔치에 초대합니다 🎂" />
+    <meta property="og:description" content="2026년 7월 5일 토요일 낮 12시, 호텔 도림" />
+    <meta property="og:image" content="https://your-username.github.io/your-repo/preview.jpg" />
+    
+    <title>은하의 첫돌 초대장</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <style>
+        /* [슈크림 테마 색상 및 폰트] */
+        :root {
+            --primary-color: #e0b48e; /* 따뜻한 피치/베이지 포인트 */
+            --bg-color: #fdfaf6;     /* 크림색 배경 */
+            --card-bg: #ffffff;      
+            --text-main: #5a4d41;    /* 부드러운 브라운 텍스트 */
+            --text-sub: #8b7d71;
+            --black-overlay: rgba(0, 0, 0, 0.85);
+        }
+
+        body {
+            font-family: 'Gowun Dodum', sans-serif; /* 감성적인 고운 돋움체 */
+            background-color: var(--bg-color);
+            margin: 0; padding: 0;
+            color: var(--text-main);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 420px; margin: 0 auto;
+            background-color: var(--bg-color); /* 카드가 아닌 전체 배경 통일 */
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(139, 125, 113, 0.1);
+            padding-bottom: 50px;
+        }
+
+        /* 손글씨 폰트 클래스 */
+        .handwriting { font-family: 'Nanum Pen Script', cursive; font-size: 28px; color: #6e5f53; }
+        
+        .section-title { font-size: 18px; color: var(--primary-color); text-align: center; margin-bottom: 25px; font-weight: bold; }
+
+        /* [1. 배경음악 컨트롤러] */
+        #music-control {
+            position: fixed; top: 20px; right: 20px; z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            width: 38px; height: 38px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            cursor: pointer; border: none;
+        }
+        #music-icon.playing { animation: rotateMusic 3s linear infinite; }
+        @keyframes rotateMusic { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* [2. 상단 헤더 & ★폴라로이드 사진★] */
+        .header { padding: 50px 20px 20px; text-align: center; }
+        .header h1 { font-size: 24px; margin: 0; font-weight: bold; letter-spacing: 1px; }
+
+        .main-photo-section { padding: 20px 30px 40px; text-align: center; }
+        
+        /* 폴라로이드 프레임 디자인 */
+        .polaroid {
+            background: white;
+            padding: 12px 12px 50px 12px; /* 하단 여백을 넓게 */
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            transform: rotate(-2deg); /* 살짝 삐딱하게 해서 귀여움 강조 */
+            margin: 0 auto;
+            position: relative;
+            max-width: 300px;
+        }
+        .polaroid img {
+            width: 100%; aspect-ratio: 1 / 1;
+            object-fit: cover;
+            display: block;
+        }
+        .polaroid-caption {
+            position: absolute;
+            bottom: 12px; left: 0; width: 100%;
+            text-align: center;
+            transform: rotate(1deg); /* 글씨는 살짝 반대로 */
+        }
+
+        /* [3. 초대 메시지] */
+        .message-section { padding: 10px 35px 40px; text-align: center; }
+        .message-text { font-size: 16px; color: var(--text-sub); word-break: keep-all; }
+
+        /* [4. 사진 갤러리 (둥근 바둑판)] */
+        .gallery-section { padding: 0 25px 50px; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .gallery-item {
+            width: 100%; aspect-ratio: 1 / 1; overflow: hidden;
+            border-radius: 12px; /* 모서리를 둥글게 해서 귀엽게 */
+            cursor: pointer; box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+        }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+        .gallery-item:active img { transform: scale(1.05); }
+
+        /* [5. 행사 정보 (부드러운 박스)] */
+        .info-section { padding: 0 25px 40px; }
+        .info-box {
+            background-color: white;
+            border-radius: 20px;
+            padding: 30px 20px;
+            box-shadow: 0 5px 15px rgba(224, 180, 142, 0.15); /* 피치톤 그림자 */
+        }
+        .info-item { display: flex; align-items: flex-start; margin-bottom: 20px; }
+        .info-item:last-child { margin-bottom: 0; }
+        .info-icon { width: 35px; height: 35px; background: #fdfaf6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; margin-right: 15px; }
+        .info-content h3 { margin: 0 0 5px; font-size: 15px; color: var(--text-main); font-weight: bold; }
+        .info-content p { margin: 0; font-size: 14px; color: var(--text-sub); }
+
+        /* [6. 하단 버튼군 (둥글둥글 필 알약 모양)] */
+        .action-section { padding: 0 25px 40px; text-align: center; display: flex; flex-direction: column; gap: 12px; }
+        .btn { display: block; width: 100%; padding: 16px; border-radius: 30px; /* 완전 둥글게 */ font-size: 15px; font-weight: bold; text-decoration: none; box-sizing: border-box; transition: all 0.2s ease; cursor: pointer; border: none; }
+        .btn-primary { background-color: var(--primary-color); color: white; box-shadow: 0 4px 12px rgba(224, 180, 142, 0.4); }
+        .btn-primary:active { transform: translateY(2px); }
+        .btn-secondary { background-color: white; color: var(--text-main); border: 1px solid #e8ddd3; }
+        .btn-secondary:active { background-color: #f7f3ef; }
+
+        .footer { font-size: 12px; color: #c4b8b0; text-align: center; padding: 20px 0; }
+
+        /* [풀스크린 갤러리 모달] (기존과 동일하되 배경만 부드럽게) */
+        #gallery-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--black-overlay); z-index: 2000; display: none; opacity: 0; transition: opacity 0.3s ease; }
+        #gallery-modal.show { display: block; opacity: 1; }
+        .swiper-modal { width: 100%; height: 100%; }
+        .swiper-slide { display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .swiper-slide img { max-width: 100%; max-height: 90vh; object-fit: contain; }
+        .modal-close { position: absolute; top: 20px; right: 20px; z-index: 2100; color: rgba(255, 255, 255, 0.8); font-size: 35px; background: none; border: none; cursor: pointer; }
+        .swiper-pagination-bullet { background: rgba(255, 255, 255, 0.5); opacity: 1; }
+        .swiper-pagination-bullet-active { background: #fff; }
+    </style>
+</head>
+<body>
+    <audio id="bgm" loop>
+        <source src="bgm.mp3" type="audio/mpeg">
+    </audio>
+    
+    <button id="music-control" onclick="toggleMusic()" aria-label="음악 켜기/끄기">
+        <span id="music-icon">🎵</span>
+    </button>
+
+    <div class="container">
+        
+        <header class="header">
+            <h1 style="color: #c9a788;">INVITATION</h1>
+        </header>
+
+        <section class="main-photo-section">
+            <div class="polaroid">
+                <img src="images/main.jpg" alt="우리 아기 대표 사진">
+                <div class="polaroid-caption handwriting">
+                    은하의 첫 생일 🎂
+                </div>
+            </div>
+        </section>
+
+        <section class="message-section">
+            <h2 class="section-title handwriting" style="font-size: 32px; margin-bottom: 20px;">초대합니다</h2>
+            <div class="message-text">
+                열 달을 품어 만난 은하가<br>
+                어느덧 건강하게 자라 첫 생일을 맞이했습니다.<br><br>
+                사랑으로 지켜봐 주신 분들을 모시고<br>
+                작은 잔치를 열고자 합니다.<br><br>
+                귀한 걸음 하셔서 함께 축하해 주시면<br>
+                더없는 기쁨이겠습니다.
+            </div>
+        </section>
+
+        <section class="gallery-section">
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openModal(0)"><img src="images/gallery1.jpg" alt="사진 1"></div>
+                <div class="gallery-item" onclick="openModal(1)"><img src="images/gallery2.jpg" alt="사진 2"></div>
+                <div class="gallery-item" onclick="openModal(2)"><img src="images/gallery3.jpg" alt="사진 3"></div>
+                <div class="gallery-item" onclick="openModal(3)"><img src="images/gallery4.jpg" alt="사진 4"></div>
+                <div class="gallery-item" onclick="openModal(4)"><img src="images/gallery5.jpg" alt="사진 5"></div>
+                <div class="gallery-item" onclick="openModal(5)"><img src="images/gallery6.jpg" alt="사진 6"></div>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <div class="info-box">
+                <div class="info-item">
+                    <div class="info-icon">📅</div>
+                    <div class="info-content">
+                        <h3>일시</h3>
+                        <p>2026년 7월 5일 토요일 낮 12시</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">📍</div>
+                    <div class="info-content">
+                        <h3>장소</h3>
+                        <p>수지의 정원</p>
+                        <p style="font-size: 13px; margin-top: 2px;">경기 용인시 수지구 성복2로 408 1층</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="action-section">
+            <a href="https://naver.me/GtUWvosN" target="_blank" class="btn btn-primary">오시는 길 (지도 보기)</a>
+            <button class="btn btn-secondary" onclick="copyAddress()">식장 주소 복사하기</button>
+        </section>
+
+        <footer class="footer">Made with ❤️ by Daddy</footer>
+    </div>
+
+    <div id="gallery-modal">
+        <button class="modal-close" onclick="closeModal()" aria-label="닫기">&times;</button>
+        <div class="swiper swiper-modal">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="images/gallery1.jpg" alt="아기 사진 1"></div>
+                <div class="swiper-slide"><img src="images/gallery2.jpg" alt="아기 사진 2"></div>
+                <div class="swiper-slide"><img src="images/gallery3.jpg" alt="아기 사진 3"></div>
+                <div class="swiper-slide"><img src="images/gallery4.jpg" alt="아기 사진 4"></div>
+                <div class="swiper-slide"><img src="images/gallery5.jpg" alt="아기 사진 5"></div>
+                <div class="swiper-slide"><img src="images/gallery6.jpg" alt="아기 사진 6"></div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <script>
+        // 배경음악 제어
+        const bgm = document.getElementById('bgm');
+        const musicIcon = document.getElementById('music-icon');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                bgm.pause();
+                musicIcon.classList.remove('playing');
+                musicIcon.innerText = "🔇";
+            } else {
+                bgm.play().catch(e => alert("음악 재생에 실패했습니다."));
+                musicIcon.classList.add('playing');
+                musicIcon.innerText = "🎵";
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // 스와이퍼(Swiper) 갤러리
+        const swiper = new Swiper('.swiper-modal', {
+            loop: true,
+            spaceBetween: 10,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            keyboard: { enabled: true },
+        });
+
+        // 모달 제어
+        const modal = document.getElementById('gallery-modal');
+
+        function openModal(index) {
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            swiper.slideTo(index + 1, 0);
+        }
+
+        function closeModal() {
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal || e.target.classList.contains('swiper-slide')) {
+                closeModal();
+            }
+        });
+
+        // 주소 복사
+        function copyAddress() {
+            const addressText = "경기 용인시 수지구 성복2로 408 1층";
+            navigator.clipboard.writeText(addressText).then(() => {
+                alert("주소가 복사되었습니다.\n네비게이션에 편하게 붙여넣기 하세요! 🚗");
+            }).catch(err => {
+                alert("주소 복사에 실패했습니다. 직접 복사해주세요.");
+            });
+        }
+    </script>
+</body>
+</html>
